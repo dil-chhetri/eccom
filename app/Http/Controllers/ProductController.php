@@ -7,6 +7,8 @@ use App\Models\Categories;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -45,12 +47,32 @@ class ProductController extends Controller
     }
 
     public function showProduct(){
+        if(session()->has('user') && session('user')['is_admin']==='YES'){
         $products = Product::all();
         $data = compact('products');
-        if(session()->has('user') && session('user')['is_admin']==='YES'){
             return view('ecommerce.admin.view-products')->with($data);
         }else{
-            return redirect('/')->with($data);
+        
+
+        $products = Product::all();
+
+        $data = compact('products');
+        return view('ecommerce.main.products')->with($data);
+        
+        }
+    }
+
+    public function showProductByCategory($id){
+
+        if(!is_null($id)){
+            $category = Categories::find($id);
+            
+            $category_name = $category->category_name;
+            $products = Product::where('category',$category_name)->get();
+            $data = compact('products','category');
+            return view('ecommerce.main.products')->with($data);
+        }else{
+            return view('ecommerce.main.products')->with('error', 'Invalid category');
         }
     }
 

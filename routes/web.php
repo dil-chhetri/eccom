@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoiesController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,9 @@ Route::middleware(['admin.check'])->group(function () {
 
 });
 Route::get('/view-products',[ProductController::class, 'showProduct']);
+Route::get('/view-products/{category_id}',[ProductController::class, 'showProductByCategory'])->name('products.category');
+
 Route::get('/view-categories',[CategoiesController::class, 'showCategories']);
-
-
+Route::get('/cart',[CartController::class, 'index']);
+Route::post('/update-cart/{cart_id}',[CartController::class,'updateCart'])->name('cart.update');
+Route::post('/add-to-cart',[CartController::class, 'addToCart'])->name('add.cart');

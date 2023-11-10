@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -13,11 +15,13 @@ class UserController extends Controller
     //
     public function index(){
         $products = Product::all();
+       
         $data = compact('products');
         return view('ecommerce.main.dashboard')->with($data);
     }
 
     public function register(){
+
         return view('ecommerce.register');
     }
 
