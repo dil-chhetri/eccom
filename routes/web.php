@@ -52,3 +52,4 @@ Route::get('/view-categories',[CategoiesController::class, 'showCategories']);
 Route::get('/cart',[CartController::class, 'index']);
 Route::post('/update-cart/{cart_id}',[CartController::class,'updateCart'])->name('cart.update');
 Route::post('/add-to-cart',[CartController::class, 'addToCart'])->name('add.cart');
+Route::get('/delete-cart-item/{cart_id}',[CartController::class,'deleteCartItem'])->name('cart.item.delete');

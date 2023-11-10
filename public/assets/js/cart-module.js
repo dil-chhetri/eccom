@@ -60,7 +60,6 @@ $(document).on("click", ".updateQuantity", function () {
 $(document).on("click",".addCart", function (e) {
   e.preventDefault();
   var container = $(this).closest(".product")
-  console.log(container)
   var product_id = container.find(".product_id").val();
   var user_id = container.find(".user_id").val();
   var quantity = 1;
@@ -102,6 +101,36 @@ $(document).on("click",".addCart", function (e) {
     }
   });
   
+});
+
+$(document).on('click','.remove-cart-item',function(e){
+e.preventDefault();
+
+var quantity = $(this).closest(".cart_data").find(".quantity-amount").val();
+var cart_id = $(this).closest(".cart_data").find(".cartId").val();
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+  }
+});
+
+$.ajax({
+  method: 'get',
+  url:'/delete-cart-item/'+cart_id,
+  data:{
+    cart_id:cart_id,
+  },
+  success:function(response){
+
+$("#cart").load(window.location.href + " #cart");
+
+
+},
+error: function (xhr, status, error) {
+console.error("Error Deleting Cart Item:", error);
+}
+})
+
 });
 
 });

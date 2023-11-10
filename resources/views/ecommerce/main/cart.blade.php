@@ -50,7 +50,7 @@
         
                           </td>
                           <td>Rs.{{$item->price * $item->cart_quantity}}</td>
-                          <td><a href="#" class="btn btn-success btn-sm">Remove</a></td>
+                          <td><a href="#" class="btn btn-success btn-sm remove-cart-item">Remove</a></td>
                         </tr>
                         @endforeach
                         

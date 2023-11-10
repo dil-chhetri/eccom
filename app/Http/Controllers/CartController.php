@@ -76,4 +76,18 @@ class CartController extends Controller
         ],401);
     }
 }
+
+public function deleteCartItem($id){
+try{
+    $cart = Cart::find($id);
+    if(!is_null($cart)){
+        $cart->delete();
+        return response(['message'=>'Product Deleted Successfully']);
+    }else{
+        return response(['message'=>'Invalid Cart Item']);
+    }
+}catch(Exception $e){
+    return response(['error'=>'Error'.$e->getMessage()]);
+}
+}
 }
