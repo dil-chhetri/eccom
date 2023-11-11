@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoiesController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,7 +27,7 @@ Route::get('/register',[UserController::class, 'register']);
 Route::post('/register',[UserController::class, 'storeUser']);
 Route::get('/logout',[UserController::class, 'logout']);
 Route::middleware(['admin.check'])->group(function () {
-    Route::get('/admin',[AdminController::class, 'index']);
+    Route::get('/admin',[UserController::class, 'isAdmin']);
     Route::get('/addCategory',[CategoiesController::class, 'addCategory']);
     Route::post('/addCategory',[CategoiesController::class, 'storeCategory']);
     Route::get('/edit-category/{category_id}',[CategoiesController::class,'editCategory'])->name('edit.category');
@@ -53,3 +54,7 @@ Route::get('/cart',[CartController::class, 'index']);
 Route::post('/update-cart/{cart_id}',[CartController::class,'updateCart'])->name('cart.update');
 Route::post('/add-to-cart',[CartController::class, 'addToCart'])->name('add.cart');
 Route::get('/delete-cart-item/{cart_id}',[CartController::class,'deleteCartItem'])->name('cart.item.delete');
+Route::get('/checkout',[OrderItemController::class, 'checkoutItems'])->name('checkout.items');
+Route::post('/place-order',[OrderItemController::class, 'placeOrder'])->name('place.order');
+
+

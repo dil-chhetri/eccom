@@ -92,6 +92,10 @@ class UserController extends Controller
         }
     }
 
+    public function isAdmin(){
+        return view('ecommerce.admin.dashboard');
+    }
+
     public function logout(){
         session()->forget('user');
         return redirect('/');
