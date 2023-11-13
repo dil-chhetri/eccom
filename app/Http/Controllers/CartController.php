@@ -54,7 +54,7 @@ class CartController extends Controller
         if(count($cartProductExist)>0){
             return response([
                 'message' => 'Product already exist in cart'
-            ], 100);
+            ], 'exist');
         }else{
         $cart = new Cart();
         $cart->product_id = $request['product_id'];
@@ -63,7 +63,7 @@ class CartController extends Controller
         $cart->save();
         return response([
             'message' => 'product added to cart'
-        ], 'exist');
+        ]);
         }
         }catch(Exception $e){
             return response([

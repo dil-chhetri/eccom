@@ -25,7 +25,7 @@
 		            <div class="form-group">
 		              <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
 		              <select id="" class="form-control" name="country">
-                        <option value="">Select a country</option>    
+                        <option value="{{$address->country}}">{{$address->country}}</option>    
                         <option value="Nepal">Nepal</option>    
                         <option value="India">India</option>    
                         <option value="Pakistan">Pakistan</option>    
@@ -46,28 +46,25 @@
 		                <input type="text" class="form-control" id="c_lname" name="c_lname" value="{{session('user')['last_name']}}" disabled>
 		              </div>
 		            </div>
-
-
-
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_street" name="street_address" placeholder="Street address">
+		                <input type="text" class="form-control" id="c_street" name="street_address" placeholder="Street address" value="{{$address->street_address}}">
 		              </div>
 		            </div>
 
 		            <div class="form-group mt-3">
-		              <input type="text" class="form-control" placeholder="city" name="city">
+		              <input type="text" class="form-control" placeholder="city" name="city" value="{{$address->city}}">
 		            </div>
 
 		            <div class="form-group row">
 		              <div class="col-md-6">
 		                <label for="c_state_country" class="text-black">State<span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_state_country" name="state">
+		                <input type="text" class="form-control" id="c_state_country" name="state" value="{{$address->state}}">
 		              </div>
 		              <div class="col-md-6">
 		                <label for="c_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_postal_zip" name="zip_code">
+		                <input type="text" class="form-control" id="c_postal_zip" name="zip_code" value="{{$address->zip_code}}">
 		              </div>
 		            </div>
 
@@ -81,10 +78,7 @@
 		                <input type="text" class="form-control" id="c_phone" name="phone_number" placeholder="Phone Number" value="{{session('user')['phone_number']}}" disabled>
 		              </div>
 		            </div>
-		            <div class="form-group">
-		              <label for="c_order_notes" class="text-black">Order Notes</label>
-		              <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
-		            </div>
+
 
 		          </div>
 		        </div>
@@ -110,6 +104,7 @@
 		          <div class="row mb-5">
 		            <div class="col-md-12">
 		              <h2 class="h3 mb-3 text-black">Your Order</h2>
+                      <span class="text-dark fw-bold">{{$order->order_status}}</span>
 		              <div class="p-3 p-lg-5 border bg-white">
 		                <table class="table site-block-order-table mb-5">
 		                  <thead>
@@ -117,17 +112,17 @@
 		                    <th>Total</th>
 		                  </thead>
 		                  <tbody>
-							@php 
+                          @php 
 							$total = 0;
 							@endphp
-                            @foreach($cartProducts as $item)
+                            @foreach($orderItems as $item)
 		                    <tr>
-                               <input type="hidden" name="cart_id" value="{{$item->cart_id}}">
-		                      <td>{{$item->product_name}} <strong class="mx-2">x</strong> {{$item->cart_quantity}}</td>
+                               <input type="hidden" name="cart_id" value="{{$item->product_id}}">
+		                      <td>{{$item->product_name}} <strong class="mx-2">x</strong> {{$item->order_item_quantity}}</td>
 		                      <td>Rs.{{$item->price}}</td>
 		                    </tr>
-							@php 
-							$total += $item->price * $item->cart_quantity;
+                            @php 
+							$total += $item->price * $item->order_item_quantity;
 							@endphp
                             @endforeach
 		                    <tr>

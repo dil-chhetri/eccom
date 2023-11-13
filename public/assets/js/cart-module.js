@@ -61,8 +61,7 @@ $(document).on("click",".addCart", function (e) {
   e.preventDefault();
   var container = $(this).closest(".product")
   var product_id = container.find(".product_id").val();
-  var user_id = container.find(".user_id").val();
-  var quantity = 1;
+  var quantity = container.find(".quantity-amount").val();
     $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')

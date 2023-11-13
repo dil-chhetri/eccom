@@ -59,13 +59,14 @@
 						@endforeach
 						</ul>
 						</li>
-						<li ><a class="nav-link" href="{{url('/')}}/cart">Cart</a></li>
 
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 						@if(session('user'))
 
+						<li ><a class="nav-link" href="{{url('/')}}/cart">Cart</a></li>
+						<li ><a class="nav-link" href="{{url('/')}}/orders-view">Orders</a></li>
 						<li><a class="nav-link" href="#"><i class="fa fa-user"></i><span class="mx-2">{{session('user')['username']}}</span></a></li>
 						<li><a class="nav-link " href="{{url('/')}}/logout"><i class="fa-solid fa-right-from-bracket"></i><span class="mx-2">Logout</span></a></li>
 

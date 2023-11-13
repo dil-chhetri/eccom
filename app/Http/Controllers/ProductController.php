@@ -173,4 +173,18 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Error deleting:'.$e->getMessage());
         }
     }
+
+    public function productView($id){
+        try{
+        $product = Product::find($id);
+        if(!is_null($product)){
+            $data = compact('product');
+            return view('ecommerce.main.product-view')->with($data);
+        }else{
+            return view('ecommerce.main.product-view')->with('error','Invalid product');
+        }
+        }catch(Exception $e){
+            return view('ecommerce.main.product-view')->with('error','Error'.$e->getMessage());
+        }
+    }
 }

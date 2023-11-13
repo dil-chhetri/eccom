@@ -39,6 +39,8 @@
                     @foreach($products as $item)
 					<div class="col-12 col-md-4 col-lg-3 mb-5 product">
 					<input type="hidden" name="" value="{{$item->product_id}}" class="product_id">
+					<input type="hidden" name="" class="quantity-amount" value="1">
+
 						<a class="product-item" href="#">
                             @php
                             $image = explode('|', $item->images);

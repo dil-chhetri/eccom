@@ -3,11 +3,13 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoiesController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Categories;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,5 +58,9 @@ Route::post('/add-to-cart',[CartController::class, 'addToCart'])->name('add.cart
 Route::get('/delete-cart-item/{cart_id}',[CartController::class,'deleteCartItem'])->name('cart.item.delete');
 Route::get('/checkout',[OrderItemController::class, 'checkoutItems'])->name('checkout.items');
 Route::post('/place-order',[OrderItemController::class, 'placeOrder'])->name('place.order');
+Route::get('/product-view/{product_id}',[ProductController::class, 'productView'])->name('product.view');
+Route::get('/orders-view',[OrderController::class, 'showOrder'])->name('orders.view');
+Route::get('/order-history',[OrderController::class,'orderHistory'])->name('order.history');
+Route::get('/orders-view/{order_id}',[OrderController::class, 'viewOrder'])->name('order.view');
 
 

@@ -49,7 +49,8 @@
                     @endphp
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 product">
 						<input type="hidden" name="" value="{{$data->product_id}}" class="product_id">
-						<a class="product-item" href="cart.html">
+						<input type="hidden" name="" class="quantity-amount" value="1">
+						<a class="product-item" href="{{route('product.view',['product_id'=> $data->product_id])}}">
                         @php 
                         $image = explode('|', $data->images);
                         $position = rand(0, count($image)-1)
