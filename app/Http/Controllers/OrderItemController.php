@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -62,6 +63,10 @@ class OrderItemController extends Controller
             $orderItem->quantity = $items->cart_quantity;
             $orderItem->subtotal_price = $items->cart_quantity* $items->price;
             $orderItem->save();
+            $p_id = $orderItem->product_id;
+            $product = Product::where('product_id',$p_id)->first();
+            $product->quantity = $product->quantity - $orderItem->quantity;
+            $product->save();
         }
         // echo 'done order_items';
         $checkAddress = Address::where('user_id','=',session('user')['user_id'])->first();

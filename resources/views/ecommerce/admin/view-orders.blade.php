@@ -1,8 +1,8 @@
-@extends('ecommerce.layouts.main')
+@extends('ecommerce.admin.layouts.main')
 @push('title')
-<title>index</title>
+<title>view-products</title>
 @endpush
-@section('main')
+@section('main-contain')
 <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -15,18 +15,18 @@
                     @endisset
                     </div>
                     <div class="card-body" id="products_table">
-                        <a href="{{url('/')}}/order-history" class="btn btn-success">Order History</a>
+                        <a href="{{url('/')}}/view-trash" class="btn btn-success">Order History</a>
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     
                                     <th>Order ID</th>
-           
                                     <th>Address</th>
                                     <th>Total Price</th>
-                                    <th>Status</h>
-                             
-                                    <th>Action</th>
+                                    <th>Order Statis</th>
+                                    <th>Payment Method</h>
+                                    <th>Actions</th>
+                                    
 
 
                                 </tr>
@@ -36,31 +36,17 @@
                                         <tr>
                                             <td>{{$item->order_id}}</td>
 
-
-                                           
+                                            <td>{{$item->shipping_address}}</td>
+                                           <td>{{$item->total_price}}</td>
                                             <td>
-                                                @php
-                                                $shipping_address = explode('|', $item->shipping_address);
-                                                @endphp
-                                                @foreach($shipping_address as $address)
-                                                <span>{{$address}}</span>
-                                                @endforeach
+                                            {{$item->order_status}}
                                             </td>
-                                            <td>{{$item->total_price}}</td>
+                                            <td>{{$item->payment_method}}</td>
                                             
-                                            <td>{{$item->order_status}}</td>
-                                          
 
 
                                             <td>
-                                                <a href="{{route('order.view',['order_id' => $item->order_id])}}" class="btn btn-info "  >View Order</a>
-                                              
-                                           
-                                                <a href="{{route('order.cancle',['order_id'=> $item->order_id])}}" class="btn btn-danger ">Cancle</a>
-                                            
-                                                
-                                               
-                                                
+                                                <a href="{{route('order.view',['order_id'=>$item->order_id])}}" class="btn btn-info ">Edit</a>
                                             </td>
 
                                         </tr>

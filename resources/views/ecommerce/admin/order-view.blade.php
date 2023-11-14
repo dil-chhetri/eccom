@@ -20,7 +20,7 @@
                 @csrf
 		      <div class="row">
 		        <div class="col-md-6 mb-5 mb-md-0">
-		          <h2 class="h3 mb-3 text-black">Billing Details</h2>
+		          <h2 class="h3 mb-3 text-black">Order Details</h2>
 		          <div class="p-3 p-lg-5 border bg-white">
 		            <div class="form-group">
 		              <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
@@ -39,11 +39,11 @@
 		            <div class="form-group row">
 		              <div class="col-md-6">
 		                <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_fname" name="c_fname" value="{{session('user')['first_name']}}" disabled> 
+		                <input type="text" class="form-control" id="c_fname" name="c_fname" value="{{$user->first_name}}" disabled> 
 		              </div>
 		              <div class="col-md-6">
 		                <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_lname" name="c_lname" value="{{session('user')['last_name']}}" disabled>
+		                <input type="text" class="form-control" id="c_lname" name="c_lname" value="{{$user->last_name}}" disabled>
 		              </div>
 		            </div>
 		            <div class="form-group row">
@@ -71,11 +71,11 @@
 		            <div class="form-group row mb-5">
 		              <div class="col-md-6">
 		                <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_email_address" name="email_address" value="{{session('user')['email']}}" disabled>
+		                <input type="text" class="form-control" id="c_email_address" name="email_address" value="{{$user->email}}" disabled>
 		              </div>
 		              <div class="col-md-6">
 		                <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_phone" name="phone_number" placeholder="Phone Number" value="{{session('user')['phone_number']}}" disabled>
+		                <input type="text" class="form-control" id="c_phone" name="phone_number" placeholder="Phone Number" value="{{$user->phone_number}}" disabled>
 		              </div>
 		            </div>
 
@@ -169,7 +169,11 @@
 
 		                <div class="form-group">
 						@if($order->order_status === 'PENDING')
-						 <a href="{{route('order.cancle',['order_id'=>$order->order_id])}}" class="btn btn-black btn-lg py-3 btn-block"></a>
+						 <a href="{{route('order.cancle',['order_id'=>$order->order_id])}}" class="btn btn-black btn-lg py-3 btn-block">Cancle</a>
+						 @if(session('user')['is_admin'] === 'YES')
+						 <a href="{{route('order.complete',['order_id'=>$order->order_id])}}" class="btn btn-success btn-lg py-3 btn-block">Completed</a>
+
+						 @endif
 					  @endif
 		                </div>
 

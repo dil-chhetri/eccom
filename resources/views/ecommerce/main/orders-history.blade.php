@@ -53,7 +53,7 @@
 
 
                                             <td>
-                                                <a hre class="btn btn-info" href="{{route('order.view',['order_id' => $item->order_id])}}">View Order</a>
+                                                <a class="btn btn-info" href="{{route('order.view',['order_id' => $item->order_id])}}">View Order</a>
                                               
                                             </td>
 

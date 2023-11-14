@@ -46,6 +46,7 @@ Route::middleware(['admin.check'])->group(function () {
     Route::get('/restore-product/{product_id}',[ProductController::class,'restoreProduct'])->name('restore.product');
     Route::get('/force-delete-product/{product_id}',[ProductController::class,'forceDeleteProduct'])->name('force.delete');
     Route::get('/view-trash',[ProductController::class, 'viewTrash'])->name('view.trash');
+    Route::get('/order-complete/{order_id}',[OrderController::class, 'updateOrder'])->name('order.complete');
 
 });
 Route::get('/view-products',[ProductController::class, 'showProduct']);
@@ -62,5 +63,6 @@ Route::get('/product-view/{product_id}',[ProductController::class, 'productView'
 Route::get('/orders-view',[OrderController::class, 'showOrder'])->name('orders.view');
 Route::get('/order-history',[OrderController::class,'orderHistory'])->name('order.history');
 Route::get('/orders-view/{order_id}',[OrderController::class, 'viewOrder'])->name('order.view');
+Route::get('/order-cancle/{order_id}',[OrderController::class, 'cancleOrder'])->name('order.cancle');
 
 
