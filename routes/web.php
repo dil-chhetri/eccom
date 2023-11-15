@@ -65,4 +65,7 @@ Route::get('/order-history',[OrderController::class,'orderHistory'])->name('orde
 Route::get('/orders-view/{order_id}',[OrderController::class, 'viewOrder'])->name('order.view');
 Route::get('/order-cancle/{order_id}',[OrderController::class, 'cancleOrder'])->name('order.cancle');
 
+Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
+Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
+
 

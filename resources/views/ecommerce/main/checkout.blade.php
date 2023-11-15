@@ -16,7 +16,7 @@
 		          </div>
 		        </div>
 		      </div>
-              <form action="{{route('place.order')}}" method="post">
+              <form action="/session" method="post">
                 @csrf
 		      <div class="row">
 		        <div class="col-md-6 mb-5 mb-md-0">
@@ -119,8 +119,12 @@
 		                  <tbody>
 							@php 
 							$total = 0;
+							$productNames = [];
 							@endphp
                             @foreach($cartProducts as $item)
+							@php
+							$productNames[] = $item->product_name;
+							@endphp
 		                    <tr>
                                <input type="hidden" name="cart_id" value="{{$item->cart_id}}">
 		                      <td>{{$item->product_name}} <strong class="mx-2">x</strong> {{$item->cart_quantity}}</td>
@@ -140,36 +144,19 @@
 		                    </tr>
 		                  </tbody>
 		                </table>
+	
+				
+						<input type="hidden" name="total" value="{{$total}}">
+						@foreach($cartProducts as $item)
 
-		                <div class="border p-3 mb-3">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+						<input type="hidden" name="productname[]" value="{{$item->product_name}}">
+						@endforeach
+						<button class="btn btn-success" type="submit"><i class="fa fa-money"></i>Card Pay</button>
+			
 
-		                  <div class="collapse" id="collapsebank">
-		                    <div class="py-2">
-		                      <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-		                    </div>
-		                  </div>
-		                </div>
+						
 
-		                <div class="border p-3 mb-3">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
 
-		                  <div class="collapse" id="collapsecheque">
-		                    <div class="py-2">
-		                      <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-		                    </div>
-		                  </div>
-		                </div>
-
-		                <div class="border p-3 mb-5">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-
-		                  <div class="collapse" id="collapsepaypal">
-		                    <div class="py-2">
-		                      <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-		                    </div>
-		                  </div>
-		                </div>
 
 		                <div class="form-group">
 		                  <input class="btn btn-black btn-lg py-3 btn-block"  type="submit" value="Place Order">
