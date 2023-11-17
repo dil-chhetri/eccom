@@ -23,8 +23,9 @@ class OrderItemController extends Controller
             ->leftJoin('products','products.product_id', '=', 'carts.product_id')
             ->where('carts.user_id','=', session('user')['user_id'])
             ->get();
+            $address = Address::where('user_id',session('user')['user_id'])->first();
             $item = count($cartProducts);
-            $data = compact('cartProducts','item');
+            $data = compact('cartProducts','item','address');
             return view('ecommerce.main.checkout')->with($data);
         }else{
             return redirect('/login');
@@ -34,6 +35,7 @@ class OrderItemController extends Controller
 
 
     public function placeOrder(OrderRequest $request){
+
        try{
         $orderItems = DB::table('carts')
         ->select('carts.quantity as cart_quantity','carts.cart_id','products.product_name as product_name','products.price','products.product_id','products.images')
@@ -51,7 +53,11 @@ class OrderItemController extends Controller
         $address = [$request['street_address'],$request['city'],$request['state'],$request['zip_code'],$request['country']];
         $order->shipping_address=implode('|',$address);
         $order->total_price = $totalPrice;
-        $order->payment_method = $request['payment_method'];
+        if($request['cardPayment']){
+        $order->payment_method = 'CARD';
+        }else{
+        $order->payment_method = 'CASH';
+        }
         $order->save();
         // echo 'done';
         $orderId = $order->order_id;
@@ -104,7 +110,16 @@ class OrderItemController extends Controller
 
       $cart = Cart::where('user_id','=',session('user')['user_id'])->delete();
     //   echo "Deleted from cart";
-      return redirect()->back()->with('success','Order placed');
+    if($request['cardPayment']){
+        $total = $request['total'];
+        $productNames = $request['productname'];
+        $request->session()->flash('total', $total);
+       $request->session()->flash('productNames', serialize($productNames));
+        return redirect('/session');
+    }else{
+        return redirect()->back()->with('success','Order placed');
+    }
+      
 
        }catch(Exception $e){
         return redirect()->back()->with('error','Error placing order'.$e->getMessage());

@@ -111,7 +111,6 @@
                       <div class="row">
                         <div class="col-md-12">
                           <a class="btn btn-black btn-lg py-3 btn-block" href="{{route('checkout.items')}}">Proceed To Checkout</a>
-                          <a href="" class="btn btn-black btn-lg py-3 btn-block">Card Payment<i class="fa-brands fa-cc-visa mx-2"></i> </a>
                         </div>
                       </div>
                     </div>

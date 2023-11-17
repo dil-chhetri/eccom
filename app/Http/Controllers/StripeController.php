@@ -17,11 +17,14 @@ class StripeController extends Controller
    
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
  
-        $productname = $request->get('productname');
-        foreach($productname  as $item){
-            $p_name = implode('|',$productname);
+        $productname = unserialize($request->session()->get('productNames'));
+        if(is_array($productname)){
+            $productnameString = implode('|',$productname);
         }
-        $totalprice = $request->get('total');
+        else{
+            $productnameString = $productname;
+        }
+        $totalprice = $request->session()->get('total');
         $two0 = "00";
         $total = "$totalprice$two0";
  
@@ -31,7 +34,7 @@ class StripeController extends Controller
                     'price_data' => [
                         'currency'     => 'npr',
                         'product_data' => [
-                            "name" => $p_name,
+                            "name" => $productnameString,
                         ],
                         'unit_amount'  => $total,
                     ],

@@ -16,7 +16,7 @@
 		          </div>
 		        </div>
 		      </div>
-              <form action="/session" method="post">
+              <form action="{{url('/')}}/place-order" method="post">
                 @csrf
 		      <div class="row">
 		        <div class="col-md-6 mb-5 mb-md-0">
@@ -25,7 +25,10 @@
 		            <div class="form-group">
 		              <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
 		              <select id="" class="form-control" name="country">
-                        <option value="">Select a country</option>    
+						@if(!is_null($address))
+						<option value="{{$address->country}}">{{$address->country}}</option>    
+						@endif
+						<option value="" disabled>Select a country</option>    
                         <option value="Nepal">Nepal</option>    
                         <option value="India">India</option>    
                         <option value="Pakistan">Pakistan</option>    
@@ -52,22 +55,22 @@
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_street" name="street_address" placeholder="Street address">
+		                <input type="text" class="form-control" id="c_street" name="street_address" placeholder="Street address" value="{{ old('street_address', $address ? $address->street_address : '') }}">
 		              </div>
 		            </div>
 
 		            <div class="form-group mt-3">
-		              <input type="text" class="form-control" placeholder="city" name="city">
+		              <input type="text" class="form-control" placeholder="city" name="city" value="{{ old('city', $address ? $address->city : '') }}">
 		            </div>
 
 		            <div class="form-group row">
 		              <div class="col-md-6">
 		                <label for="c_state_country" class="text-black">State<span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_state_country" name="state">
+		                <input type="text" class="form-control" id="c_state_country" name="state" value="{{ old('state', $address ? $address->state : '') }}">
 		              </div>
 		              <div class="col-md-6">
 		                <label for="c_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_postal_zip" name="zip_code">
+		                <input type="text" class="form-control" id="c_postal_zip" name="zip_code" value="{{ old('zip_code', $address ? $address->zip_code : '') }}">
 		              </div>
 		            </div>
 
@@ -151,15 +154,12 @@
 
 						<input type="hidden" name="productname[]" value="{{$item->product_name}}">
 						@endforeach
-						<button class="btn btn-success" type="submit"><i class="fa fa-money"></i>Card Pay</button>
+						<div class="form-group">
+						<input class="btn btn-black btn-lg py-3 btn-block" type="submit" value="Card Pay" name="cardPayment">
+						</div>
 			
-
-						
-
-
-
 		                <div class="form-group">
-		                  <input class="btn btn-black btn-lg py-3 btn-block"  type="submit" value="Place Order">
+		                  <input class="btn btn-black btn-lg py-3 btn-block"  type="submit" value="Cash on delivery" name="cashPayment">
 		                </div>
 
 		              </div>
